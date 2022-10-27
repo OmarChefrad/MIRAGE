@@ -1,2 +1,2 @@
-# SAMURAI
-![alt text](https://raw.githubusercontent.com/OmarChefrad/SAMURAI/main/assets/samurai%20(1).png)
+# MIRAGE 
+![alt text](https://raw.githubusercontent.com/OmarChefrad/MIRAGE/main/assets/sword%20(1).png) 
