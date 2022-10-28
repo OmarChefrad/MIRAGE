@@ -19,22 +19,45 @@
   </head>
   <body>
     <div style="position: relative; display: inline-block">
-      <h1 style="color: whitesmoke; letter-spacing: 5px; display: flex; align-items: center; justify-content: center">
+      <h1
+        style="
+          font-family: WarPriestRegular2;
+          color: whitesmoke;
+          letter-spacing: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 10px;
+        ">
         Mirage Warriors
+        <img
+          src="./assets/pirate.png"
+          alt="sword"
+          style="height: 70px; width: 70px" />
       </h1>
+
       <div style="position: absolute; display: flex; width: 100%; align-items: center; padding: 20px">
         <!-- Player Health -->
-        <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end">
+        <div
+          style="
+            position: relative;
+
+            height: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+          ">
           <div style="background-color: rgba(210, 218, 181, 0.5); opacity: 100%; height: 30px; width: 100%"></div>
           <div
             id="playerHealthBar"
             style="position: absolute; background: rgb(210, 218, 181); top: 0; right: 0; bottom: 0; width: 100%"></div>
         </div>
         <!-- Timer -->
+
         <div
           id="timer"
           style="
-            background-color: rgb(127, 83, 57);
+            background-color: rgb(242, 168, 78);
             width: 300px;
             height: 50px;
             flex-shrink: 0;
@@ -44,12 +67,21 @@
             justify-content: center;
             font-size: 40px;
             letter-spacing: 4px;
+            box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.4);
+            border-radius: 8px;
           ">
-          1:24
+          60
         </div>
+
         <!-- enemy health -->
         <div style="position: relative; height: 30px; width: 100%">
-          <div style="background-color: rgba(90, 125, 180, 0.3); opacity: 100%; height: 30px"></div>
+          <div
+            style="
+              background-color: rgba(90, 125, 180, 0.3);
+
+              opacity: 100%;
+              height: 30px;
+            "></div>
           <div
             id="enemyHealthBar"
             style="position: absolute; background: rgb(56, 78, 110); top: 0; right: 0; bottom: 0; left: 0"></div>
@@ -75,22 +107,36 @@
         ">
         Draw
       </div>
-      <canvas></canvas>
+      <canvas id="canvas"></canvas>
       <div
         style="
-          color: rgba(245, 245, 245, 0.8);
+          color: rgba(245, 245, 245);
           letter-spacing: 5px;
           display: flex;
           align-items: center;
           justify-content: center;
           font-family: WarPriestRegular2;
-          font-size: small;
-          padding-top: 10px;
+          font-size: medium;
+          padding-top: 3px;
         ">
         Umar @2022
+        <audio
+          autoplay
+          loop
+          id="player">
+          <source src="./GameAssets/Mirage.mp3" />
+        </audio>
+
+        <div id="backgroundplaceholder">
+          <button
+            id="playPauseButton"
+            onclick="document.getElementById('player').pause()"></button>
+        </div>
       </div>
     </div>
   </body>
-
+  <script src="https://unpkg.com/gifler@0.1.0/gifler.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/classes.js"></script>
   <script src="script.js"></script>
 </html>

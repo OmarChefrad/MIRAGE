@@ -1,7 +1,12 @@
 body {
   overflow: hidden;
-  background-color: rgb(21, 14, 2);
-  font-family: WarPriestRegular;
+  background-color: rgb(141, 100, 29);
+  background-image: url("./GameAssets/Dunes2.png");
+  padding: 0;
+  margin: 0;
+  backdrop-filter: blur(7px);
+  background-size: cover;
+  font-family: WarPriestRegular2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,11 +16,99 @@ body {
   box-sizing: border-box;
 }
 
-@font-face {
-  font-family: "WarPriestRegular";
-  font-style: normal;
-  font-weight: normal;
-  src: local("War Priest Regular"), url("warpriest3d.woff") format("woff");
+#backgroundplaceholder {
+  padding-left: 10px;
+}
+/* the button's base size, shape, appearance */
+#playPauseButton {
+  position: relative;
+  /* the button's background color */
+  background: rgb(242, 168, 78);
+  border: none;
+  outline: none;
+  height: 5em;
+  width: 5em;
+  font-size: 0.4em;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  /* the button's a circle */
+  -moz-border-radius: 5em;
+  -webkit-border-radius: 5em;
+  border-radius: 5em;
+}
+
+#playPauseButton:focus {
+  outline: none;
+}
+
+/* the button's top layer: size, shape, appearance */
+#playPauseButton:before {
+  content: "";
+  position: absolute;
+  top: 1.5em;
+  /*forvisualcentering*/
+  left: 1.5em;
+  height: 0;
+  border-style: solid;
+  border-width: 1em 0 1em 2em;
+  /*createshapewithcolor*/
+  border-color: transparent transparent transparent #f6f6f6;
+  transition: 0.218s ease;
+  -webkit-transition: 0.218s ease;
+  -moz-transition: 0.218s ease;
+  -ms-transition: 0.218s ease;
+  -o-transition: 0.218s ease;
+}
+
+#playPauseButton:hover:before {
+  height: 2em;
+  border-width: 0 0 0 2em;
+}
+
+/* the button's mouseover/click/hover layer: size, shape, appearance */
+#playPauseButton:after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  width: 0;
+  height: 2em;
+  top: 1.5em;
+  /* for visual centering */
+  left: 2.42em;
+  transition: 0.218s ease;
+}
+
+#playPauseButton:hover:after {
+  width: 0em;
+}
+#canvas:before,
+#canvas:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 25px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width: 300px;
+  background: #777;
+  -webkit-box-shadow: 0 35px 20px #777;
+  -moz-box-shadow: 0 35px 20px #777;
+  box-shadow: 0 35px 20px #777;
+  -webkit-transform: rotate(-8deg);
+  -moz-transform: rotate(-8deg);
+  -o-transform: rotate(-8deg);
+  -ms-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+}
+#canvas:after {
+  -webkit-transform: rotate(8deg);
+  -moz-transform: rotate(8deg);
+  -o-transform: rotate(8deg);
+  -ms-transform: rotate(8deg);
+  transform: rotate(8deg);
+  right: 10px;
+  left: auto;
 }
 
 @font-face {
