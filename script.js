@@ -14,12 +14,14 @@ const background = new Sprite({
     y: 0,
   },
   imageSrc: "./GameAssets/Dunes.png",
+  scale: 1,
+  framesMax: 1,
 })
 
 const player = new Fighter({
   position: {
-    x: 200,
-    y: 315,
+    x: 0,
+    y: 200,
   },
   velocity: {
     x: 0,
@@ -29,12 +31,28 @@ const player = new Fighter({
     x: 0,
     y: 0,
   },
+  imageSrc: "./GameAssets/Martial Hero/Sprites/Idle.png",
+  scale: 2.65,
+  framesMax: 8,
+  offset: {
+    x: 65,
+    y: 200,
+  },
+  sprites: {
+    idle: { imageSrc: "./GameAssets/Martial Hero/Sprites/Idle.png", framesMax: 8 },
+    run: { imageSrc: "./GameAssets/Martial Hero/Sprites/Run.png", framesMax: 8 },
+    jump: { imageSrc: "./GameAssets/Martial Hero/Sprites/Jump.png", framesMax: 2 },
+    attack: { imageSrc: "./GameAssets/Martial Hero/Sprites/Attack1.png", framesMax: 8 },
+    takeahit: { imageSrc: "./GameAssets/Martial Hero/Sprites/TakeHit2.png", framesMax: 4 },
+    death: { imageSrc: "./GameAssets/Martial Hero/Sprites/Death.png", framesMax: 8 },
+    fall: { imageSrc: "./GameAssets/Martial Hero/Sprites/Fall.png", framesMax: 2 },
+  },
 })
 
 const enemy = new Fighter({
   position: {
-    x: 1000,
-    y: 315,
+    x: 850,
+    y: 200,
   },
   velocity: {
     x: 0,
@@ -42,8 +60,19 @@ const enemy = new Fighter({
   },
   color: "rgba(56, 78, 110)",
   offset: {
-    x: -50,
+    x: -55,
     y: 0,
+  },
+  imageSrc: "GameAssets/light Bandit/LightBanditIdle.png",
+  scale: 3.65,
+  sprites: {
+    idle: { imageSrc: "./GameAssets/Light Bandit/LightBanditIdle.png", framesMax: 8 },
+    run: { imageSrc: "./GameAssets/Light Bandit/LightBanditRun.png", framesMax: 8 },
+    jump: { imageSrc: "./GameAssets/Light Bandit/LightBanditJump.png", framesMax: 1 },
+    attack: { imageSrc: "./GameAssets/Light Bandit/LightBanditAttack.png", framesMax: 8 },
+    takeahit: { imageSrc: "./GameAssets/Light Bandit/LightBanditTakeAHit.png", framesMax: 4 },
+    death: { imageSrc: "./GameAssets/Light Bandit/LightBanditDeath.png", framesMax: 8 },
+    fall: { imageSrc: "./GameAssets/Light Bandit/LightBanditFall.png", framesMax: 1 },
   },
 })
 
@@ -80,19 +109,49 @@ function animate() {
 
   // Check if two keys in  x axes dont get conflicted//
   // Player movement
+
   if (keys.a.pressed && player.lastkey === "a") {
     player.velocity.x = -10
+    player.switchSprite("run")
   } else if (keys.q.pressed && lastkey === "q") {
     player.velocity.x = -10
+    player.switchSprite("run")
   } else if (keys.d.pressed && player.lastkey === "d") {
     player.velocity.x = 10
+    player.switchSprite("run")
+  } else {
+    player.switchSprite("idle")
+  }
+
+  // jumping
+  if (player.velocity.y < 0) {
+    player.switchSprite("jump")
+  } else if (player.velocity.y > 0) {
+    player.switchSprite("fall")
+  }
+
+  //Enemy Mouvement
+  if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
+    enemy.velocity.x = -5
+  } else if (keys.ArrowRight.pressed && enemy.lastkey === "ArrowRight") {
+    enemy.velocity.x = 5
   }
 
   // Enemy Movement //
+
   if (keys.ArrowRight.pressed && enemy.lastkey === "ArrowRight") {
     enemy.velocity.x = 10
+    enemy.switchSprite("run")
   } else if (keys.ArrowLeft.pressed && enemy.lastkey === "ArrowLeft") {
     enemy.velocity.x = -10
+    enemy.switchSprite("run")
+  } else {
+    enemy.switchSprite("idle")
+  }
+  if (enemy.velocity.y < 0) {
+    enemy.switchSprite("jump")
+  } else if (enemy.velocity.y > 0) {
+    enemy.switchSprite("fall")
   }
 
   //detect collition player
@@ -101,7 +160,8 @@ function animate() {
       rectangle1: player,
       rectangle2: enemy,
     }) &&
-    player.isAttacking
+    player.isAttacking &&
+    player.framesCurrent === 4
   ) {
     player.isAttacking = false
     enemy.health -= 10
@@ -112,6 +172,7 @@ function animate() {
   if (
     rectangularCollision({
       rectangle1: enemy,
+
       rectangle2: player,
     }) &&
     enemy.isAttacking
