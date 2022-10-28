@@ -20,39 +20,36 @@ const background = new Sprite({
 
 const player = new Fighter({
   position: {
-    x: 0,
-    y: 200,
+    x: 70,
+    y: 220,
   },
   velocity: {
     x: 0,
     y: 5,
   },
+
+  imageSrc: "./GameAssets/Martial Hero/Sprites/Idle.png",
+  scale: 4,
+  framesMax: 8,
   offset: {
     x: 0,
     y: 0,
   },
-  imageSrc: "./GameAssets/Martial Hero/Sprites/Idle.png",
-  scale: 2.65,
-  framesMax: 8,
-  offset: {
-    x: 65,
-    y: 200,
-  },
   sprites: {
-    idle: { imageSrc: "./GameAssets/Martial Hero/Sprites/Idle.png", framesMax: 8 },
-    run: { imageSrc: "./GameAssets/Martial Hero/Sprites/Run.png", framesMax: 8 },
-    jump: { imageSrc: "./GameAssets/Martial Hero/Sprites/Jump.png", framesMax: 2 },
-    attack: { imageSrc: "./GameAssets/Martial Hero/Sprites/Attack1.png", framesMax: 8 },
-    takeahit: { imageSrc: "./GameAssets/Martial Hero/Sprites/TakeHit2.png", framesMax: 4 },
-    death: { imageSrc: "./GameAssets/Martial Hero/Sprites/Death.png", framesMax: 8 },
-    fall: { imageSrc: "./GameAssets/Martial Hero/Sprites/Fall.png", framesMax: 2 },
+    idle: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditIdle.png", framesMax: 8 },
+    run: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditRun.png", framesMax: 8 },
+    jump: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditJump.png", framesMax: 1 },
+    attack: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditAttack.png", framesMax: 6 },
+    takeahit: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditHit.png", framesMax: 3 },
+    death: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditDeath.png", framesMax: 8 },
+    fall: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditFall.png", framesMax: 2 },
   },
 })
 
 const enemy = new Fighter({
   position: {
-    x: 850,
-    y: 200,
+    x: 800,
+    y: 250,
   },
   velocity: {
     x: 0,
@@ -60,11 +57,11 @@ const enemy = new Fighter({
   },
   color: "rgba(56, 78, 110)",
   offset: {
-    x: -55,
+    x: 0,
     y: 0,
   },
   imageSrc: "GameAssets/light Bandit/LightBanditIdle.png",
-  scale: 3.65,
+  scale: 4,
   sprites: {
     idle: { imageSrc: "./GameAssets/Light Bandit/LightBanditIdle.png", framesMax: 8 },
     run: { imageSrc: "./GameAssets/Light Bandit/LightBanditRun.png", framesMax: 8 },
@@ -72,7 +69,7 @@ const enemy = new Fighter({
     attack: { imageSrc: "./GameAssets/Light Bandit/LightBanditAttack.png", framesMax: 8 },
     takeahit: { imageSrc: "./GameAssets/Light Bandit/LightBanditTakeAHit.png", framesMax: 4 },
     death: { imageSrc: "./GameAssets/Light Bandit/LightBanditDeath.png", framesMax: 8 },
-    fall: { imageSrc: "./GameAssets/Light Bandit/LightBanditFall.png", framesMax: 1 },
+    fall: { imageSrc: "./GameAssets/Light Bandit/LightBanditFall.png", framesMax: 2 },
   },
 })
 
@@ -148,6 +145,7 @@ function animate() {
   } else {
     enemy.switchSprite("idle")
   }
+  //
   if (enemy.velocity.y < 0) {
     enemy.switchSprite("jump")
   } else if (enemy.velocity.y > 0) {
