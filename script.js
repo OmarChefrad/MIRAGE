@@ -20,7 +20,7 @@ const background = new Sprite({
 
 const player = new Fighter({
   position: {
-    x: 70,
+    x: 200,
     y: 220,
   },
   velocity: {
@@ -32,23 +32,31 @@ const player = new Fighter({
   scale: 4,
   framesMax: 8,
   offset: {
-    x: 0,
+    x: 70,
     y: 0,
   },
   sprites: {
     idle: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditIdle.png", framesMax: 8 },
     run: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditRun.png", framesMax: 8 },
     jump: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditJump.png", framesMax: 1 },
-    attack: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditAttack.png", framesMax: 6 },
+    attack: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditAttack.png", framesMax: 4 },
     takeahit: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditHit.png", framesMax: 3 },
     death: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditDeath.png", framesMax: 8 },
     fall: { imageSrc: "./GameAssets/Heavy Bandit/HeavyBanditFall.png", framesMax: 2 },
+  },
+  attackBox: {
+    offset: {
+      x: 0,
+      y: 0,
+    },
+    width: 70,
+    height: 50,
   },
 })
 
 const enemy = new Fighter({
   position: {
-    x: 800,
+    x: 900,
     y: 250,
   },
   velocity: {
@@ -57,7 +65,7 @@ const enemy = new Fighter({
   },
   color: "rgba(56, 78, 110)",
   offset: {
-    x: 0,
+    x: 30,
     y: 0,
   },
   imageSrc: "GameAssets/light Bandit/LightBanditIdle.png",
@@ -66,10 +74,18 @@ const enemy = new Fighter({
     idle: { imageSrc: "./GameAssets/Light Bandit/LightBanditIdle.png", framesMax: 8 },
     run: { imageSrc: "./GameAssets/Light Bandit/LightBanditRun.png", framesMax: 8 },
     jump: { imageSrc: "./GameAssets/Light Bandit/LightBanditJump.png", framesMax: 1 },
-    attack: { imageSrc: "./GameAssets/Light Bandit/LightBanditAttack.png", framesMax: 8 },
+    attack: { imageSrc: "./GameAssets/Light Bandit/LightBanditAttack.png", framesMax: 4 },
     takeahit: { imageSrc: "./GameAssets/Light Bandit/LightBanditTakeAHit.png", framesMax: 4 },
     death: { imageSrc: "./GameAssets/Light Bandit/LightBanditDeath.png", framesMax: 8 },
     fall: { imageSrc: "./GameAssets/Light Bandit/LightBanditFall.png", framesMax: 2 },
+  },
+  attackBox: {
+    offset: {
+      x: 0,
+      y: 0,
+    },
+    width: 70,
+    height: 50,
   },
 })
 
@@ -158,11 +174,11 @@ function animate() {
       rectangle1: player,
       rectangle2: enemy,
     }) &&
-    player.isAttacking &&
-    player.framesCurrent === 4
+    player.isAttacking
   ) {
+    enemy.takeahit()
     player.isAttacking = false
-    enemy.health -= 10
+
     document.querySelector("#enemyHealthBar").style.width = enemy.health + "%"
     console.log("hit")
   }
@@ -175,6 +191,7 @@ function animate() {
     }) &&
     enemy.isAttacking
   ) {
+    player.takeahit()
     enemy.isAttacking = false
     player.health -= 10
     document.querySelector("#playerHealthBar").style.width = player.health + "%"
@@ -192,52 +209,59 @@ animate()
 
 //listners
 window.addEventListener("keydown", (event) => {
-  switch (event.key) {
-    //right
-    case "d":
-      keys.d.pressed = true
-      player.lastkey = "d"
-      break
-    case "ArrowRight":
-      keys.ArrowRight.pressed = true
-      enemy.lastkey = "ArrowRight"
-      break
-    //left
-    case "a":
-      keys.a.pressed = true
-      player.lastkey = "a"
-      break
-    case "q":
-      keys.q.pressed = true
-      lastkey = "q"
-      break
-    case "ArrowLeft":
-      keys.ArrowLeft.pressed = true
-      enemy.lastkey = "ArrowLeft"
-      break
-    //top
-    case "w":
-      player.velocity.y = -13
-      break
-    case "z":
-      player.velocity.y = -13
-      break
-    case "ArrowUp":
-      enemy.velocity.y = -13
-      break
-    //bottom
-    case "s":
-      player.velocity.y = 13
-      break
-    case "ArrowDown":
-      enemy.velocity.y = 13
-      break
-    case "g":
-      player.isAttacking = true
-      break
-    case "/":
-      enemy.isAttacking = true
-      break
+  if (!player.dead) {
+    switch (event.key) {
+      //right
+      case "d":
+        keys.d.pressed = true
+        player.lastkey = "d"
+        break
+      //left
+      case "a":
+        keys.a.pressed = true
+        player.lastkey = "a"
+        break
+      case "q":
+        keys.q.pressed = true
+        lastkey = "q"
+        break
+      //top
+      case "w":
+        player.velocity.y = -13
+        break
+      case "z":
+        player.velocity.y = -13
+        break
+      //bottom
+      case "s":
+        player.velocity.y = 13
+        break
+      // attack
+      case "g":
+        player.attack()
+        break
+    }
+    if (!enemy.dead)
+      switch (event.key) {
+        case "ArrowRight":
+          keys.ArrowRight.pressed = true
+          enemy.lastkey = "ArrowRight"
+          break
+        case "ArrowLeft":
+          keys.ArrowLeft.pressed = true
+          enemy.lastkey = "ArrowLeft"
+          break
+        case "ArrowUp":
+          enemy.velocity.y = -13
+          break
+        case "ArrowDown":
+          enemy.velocity.y = 13
+          break
+        // attack
+        case "/":
+          enemy.attack()
+          break
+      }
   }
 })
 
