@@ -180,7 +180,6 @@ function animate() {
     player.isAttacking = false
 
     document.querySelector("#enemyHealthBar").style.width = enemy.health + "%"
-    console.log("hit")
   }
   //detect collition enemy
   if (
@@ -195,7 +194,6 @@ function animate() {
     enemy.isAttacking = false
     player.health -= 10
     document.querySelector("#playerHealthBar").style.width = player.health + "%"
-    console.log("Enemy Attacked")
   }
 
   // end game base oin health
