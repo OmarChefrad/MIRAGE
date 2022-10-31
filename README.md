@@ -6,10 +6,10 @@ This project is a demo .
 
 ## How to Play
 
-- Player 1
-### WASD + G
-- Player 2
-### AROWS + /
+### Player 1
+- WASD + G
+### Player 2
+- AROWS + /
 
 ## Screenshots
 
