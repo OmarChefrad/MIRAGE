@@ -11,6 +11,8 @@ This project is a demo .
 ### Player 2
 - AROWS + /
 
-## Screenshots
+## Screenshot
 
 ![App Screenshot](https://raw.githubusercontent.com/OmarChefrad/MIRAGE/main/mirage.png)
+
+#### Umar @2022
